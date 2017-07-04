@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>FlickrKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-HelloFlickr.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftyJSON.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>225E70F3730189CD2F2A7E4A8A86E030</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2B7DF754B6978C7B383C33D0D19F567D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B1D2C6B2423E1D67F01F334C97C168DD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F7B0E80FDA1B520CBD87F9D6B4A8601D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

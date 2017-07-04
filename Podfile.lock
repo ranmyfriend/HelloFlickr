@@ -1,0 +1,20 @@
+PODS:
+  - FlickrKit (1.0.9)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
+  - SwiftyJSON (3.0.0)
+
+DEPENDENCIES:
+  - FlickrKit
+  - SDWebImage (~> 3.7)
+  - SwiftyJSON (= 3.0.0)
+
+SPEC CHECKSUMS:
+  FlickrKit: 79ffaf64a12293ba2b1aa8a2e53a4958cb113256
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  SwiftyJSON: f57b2b44bc166617372d1c70773591fe9f0f5fd4
+
+PODFILE CHECKSUM: c13454c0b253cfbaf3fed3faee510db16595bc68
+
+COCOAPODS: 1.2.1

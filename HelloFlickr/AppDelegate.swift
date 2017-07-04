@@ -7,16 +7,20 @@
 //
 
 import UIKit
+import FlickrKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        self.flickrSetup()
         return true
+    }
+    
+    private func flickrSetup() {
+        FlickrKit.shared().initialize(withAPIKey: "46606a4138ae73154f81868e904c1617", sharedSecret: "acd3d39e9afb505d")
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
