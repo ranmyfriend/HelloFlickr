@@ -19,6 +19,7 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
             self.collectionView_Albums.register(albumNib, forCellWithReuseIdentifier: AlbumCell.reuseIdentifier())
             let albumDetailNib:UINib = UINib.init(nibName: AlbumDetailCell.reuseIdentifier(), bundle: nil)
             self.collectionView_Albums.register(albumDetailNib, forCellWithReuseIdentifier: AlbumDetailCell.reuseIdentifier())
+            self.collectionView_Albums.register(LoadingCell.self, forCellWithReuseIdentifier: LoadingCell.reuseIdentifier())
         }
     }
     
@@ -26,9 +27,12 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
     var tappedRowItem:Int = -1
     var albumCellMidValue:CGFloat = 0
     internal var loadingView: LoadingView?
+    fileprivate var currentPage:Int = 1
+    fileprivate var hasMorePages:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.showLoadingViewWithMessage(message: "Loading...")
         self.getRandomFotos()
     }
     
@@ -37,17 +41,22 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
     }
     
     //MARK: - Private functions
-    private func getRandomFotos() {
+    fileprivate func getRandomFotos() {
         let flickrInteresting = FKFlickrInterestingnessGetList()
         flickrInteresting.per_page = "15"
         flickrInteresting.extras = "description,date_upload,geo"
-        self.showLoadingViewWithMessage(message: "Loading...")
+        flickrInteresting.page = currentPage.description
         FlickrKit.shared().call(flickrInteresting) { (response, error) -> Void in
             DispatchQueue.main.async {
                 self.hideLoadingView()
                 if (response != nil) {
                     let topPhotos = response?["photos"] as! [String: Any]
                     let photoArray = topPhotos["photo"] as! [[String: Any]]
+                    if photoArray.count == 15 {
+                        self.hasMorePages = true
+                    }else {
+                        self.hasMorePages = false
+                    }
                     
                     for photoDictionary in photoArray {
                         let photoURL = FlickrKit.shared().photoURL(for: FKPhotoSize.largeSquare150, fromPhotoDictionary: photoDictionary)
@@ -89,49 +98,23 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
                 }
             }
             if !found {
-                debugPrint("self.loading does not containt any superview")
+                debugPrint("self.loading does not contain any superview")
             }
             
             self.loadingView?.removeFromSuperview()
             self.loadingView?.stopAnimatingLoader()
         }
     }
-}
-
-extension ViewController {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.photos.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.row == tappedRowItem {
-            let cell:AlbumDetailCell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumDetailCell.reuseIdentifier(), for: indexPath) as! AlbumDetailCell
-            cell.populateCell(with: self.photos[indexPath.row])
-            cell.lc_upwardImgeViewLeading.constant = albumCellMidValue
-            cell.layoutIfNeeded()
-            return cell
-        }else {
-            let cell:AlbumCell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCell.reuseIdentifier(), for: indexPath) as! AlbumCell
-            let url = self.photos[indexPath.row]
-            cell.populateCell(with: url)
-            return cell
-        }
-    }
-    
     func fetchPhotoLocation(for photo:Photo) {
-        
+
         guard let latitude = photo.geo_latitude,
             let longitude = photo.geo_longitude else { return  }
-        
-        let request = NSMutableURLRequest(url: NSURL(string: "https://api.flickr.com/services/rest/?method=flickr.places.findByLatLon&api_key=10d45badcee01e477e4d56b5f285fda3&lat=\(latitude)&lon=\(longitude)&format=json&nojsoncallback=1")! as URL,
+
+        let request = NSMutableURLRequest(url: NSURL(string: "https://api.flickr.com/services/rest/?method=flickr.places.findByLatLon&api_key=46606a4138ae73154f81868e904c1617&lat=\(latitude)&lon=\(longitude)&format=json&nojsoncallback=1")! as URL,
                                           cachePolicy: .useProtocolCachePolicy,
                                           timeoutInterval: 10.0)
         request.httpMethod = "GET"
-        
+
         self.showLoadingViewWithMessage(message: "Loading...")
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
@@ -149,8 +132,40 @@ extension ViewController {
                 }
             }
         })
-        
+
         dataTask.resume()
+    }
+}
+
+extension ViewController {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if self.hasMorePages == true {
+            return self.photos.count+1
+        }
+        return self.photos.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if self.hasMorePages && photos.count == indexPath.row {
+            let cell:LoadingCell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadingCell.reuseIdentifier(), for: indexPath) as! LoadingCell
+            cell.startAnimatingCell()
+            return cell
+        }else if indexPath.row == tappedRowItem {
+            let cell:AlbumDetailCell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumDetailCell.reuseIdentifier(), for: indexPath) as! AlbumDetailCell
+            cell.populateCell(with: self.photos[indexPath.row])
+            cell.lc_upwardImgeViewLeading.constant = albumCellMidValue
+            cell.layoutIfNeeded()
+            return cell
+        }else {
+            let cell:AlbumCell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCell.reuseIdentifier(), for: indexPath) as! AlbumCell
+            let url = self.photos[indexPath.row]
+            cell.populateCell(with: url)
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -174,8 +189,7 @@ extension ViewController {
             self.tappedRowItem = indexPath.row + 1
             self.photos.insert(photo, at: self.tappedRowItem)
             albumCellMidValue = UIScreen.main.bounds.width/2
-        }
-        else {
+        }else {
             photo.selected = true
             let index = indexPath.row + 1
             if index%2 == 0 {
@@ -197,7 +211,10 @@ extension ViewController {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.row == self.tappedRowItem {
+        if self.hasMorePages && self.photos.count == indexPath.row {
+            return CGSize(width:UIScreen.main.bounds.size.width,
+                          height:LoadingCell.getHeight())
+        }else if indexPath.row == self.tappedRowItem {
             return CGSize(width:UIScreen.main.bounds.size.width,height:150)
         }else {
             let width = ((UIScreen.main.bounds.size.width / 2))
@@ -207,6 +224,13 @@ extension ViewController {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize.zero
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if (indexPath.row == photos.count && self.hasMorePages == true){
+            self.currentPage += 1
+            self.getRandomFotos()
+        }
     }
 }
 

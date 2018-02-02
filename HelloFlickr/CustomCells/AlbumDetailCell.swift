@@ -11,7 +11,7 @@ import UIKit
 class AlbumDetailCell: UICollectionViewCell {
 
     @IBOutlet weak var lbl_title: UnderlinedLabel!
-    @IBOutlet weak var lbl_description: UILabel!
+    @IBOutlet weak var txtView_description: UITextView!
     @IBOutlet weak var lc_upwardImgeViewLeading: NSLayoutConstraint!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,7 +28,7 @@ class AlbumDetailCell: UICollectionViewCell {
         }else {
             self.lbl_title.text = photo.title
         }
-        self.lbl_description.text = photo.description
+        self.txtView_description.text = photo.description
         
     }
 
@@ -40,7 +40,7 @@ class UnderlinedLabel: UILabel {
     override var text: String? {
         didSet {
             guard let text = text else { return }
-            let textRange = NSMakeRange(0, text.characters.count)
+            let textRange = NSMakeRange(0, text.count)
             let attributedText = NSMutableAttributedString(string: text)
             attributedText.addAttribute(NSUnderlineStyleAttributeName , value: NSUnderlineStyle.styleSingle.rawValue, range: textRange)
             self.attributedText = attributedText

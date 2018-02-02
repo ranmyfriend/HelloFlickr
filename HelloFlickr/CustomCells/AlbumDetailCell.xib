@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -28,32 +28,31 @@
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wCg-kw-TAl">
                         <rect key="frame" x="10" y="10" width="355" height="130"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g96-8n-7zN" customClass="UnderlinedLabel" customModule="HelloFlickr" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g96-8n-7zN" customClass="UnderlinedLabel" customModule="HelloFlickr" customModuleProvider="target">
                                 <rect key="frame" x="10" y="10" width="335" height="22"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="22" id="Uif-84-cRn"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="Uif-84-cRn"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="15"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Eb-aM-6uS">
-                                <rect key="frame" x="10" y="37" width="335" height="18"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="jP1-cX-dB9"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="13"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PJE-IL-rjl">
+                                <rect key="frame" x="10" y="32" width="335" height="88"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                            </textView>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.25490196078431371" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.3294117647" green="0.80000000000000004" blue="0.58823529409999997" alpha="0.14950770547945205" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="1Eb-aM-6uS" firstAttribute="top" secondItem="g96-8n-7zN" secondAttribute="bottom" constant="5" id="BqL-Wo-2j9"/>
                             <constraint firstItem="g96-8n-7zN" firstAttribute="leading" secondItem="wCg-kw-TAl" secondAttribute="leading" constant="10" id="Uxi-DE-Y6s"/>
-                            <constraint firstAttribute="trailing" secondItem="1Eb-aM-6uS" secondAttribute="trailing" constant="10" id="XAx-Ff-iLj"/>
+                            <constraint firstAttribute="bottom" secondItem="PJE-IL-rjl" secondAttribute="bottom" constant="10" id="WYg-1D-Tqf"/>
+                            <constraint firstAttribute="trailing" secondItem="PJE-IL-rjl" secondAttribute="trailing" constant="10" id="dMu-lT-Xke"/>
+                            <constraint firstItem="PJE-IL-rjl" firstAttribute="leading" secondItem="wCg-kw-TAl" secondAttribute="leading" constant="10" id="jJ6-gP-DVT"/>
                             <constraint firstAttribute="trailing" secondItem="g96-8n-7zN" secondAttribute="trailing" constant="10" id="lcm-Pu-j5u"/>
-                            <constraint firstItem="1Eb-aM-6uS" firstAttribute="leading" secondItem="wCg-kw-TAl" secondAttribute="leading" constant="10" id="pEI-aq-DkD"/>
+                            <constraint firstItem="PJE-IL-rjl" firstAttribute="top" secondItem="g96-8n-7zN" secondAttribute="bottom" id="mzD-Xd-vRB"/>
                             <constraint firstItem="g96-8n-7zN" firstAttribute="top" secondItem="wCg-kw-TAl" secondAttribute="top" constant="10" id="xdE-ge-IhA"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -74,9 +73,9 @@
                 <constraint firstAttribute="trailing" secondItem="wCg-kw-TAl" secondAttribute="trailing" constant="10" id="n3D-Pu-muo"/>
             </constraints>
             <connections>
-                <outlet property="lbl_description" destination="1Eb-aM-6uS" id="88Y-1G-7hE"/>
                 <outlet property="lbl_title" destination="g96-8n-7zN" id="p2u-Rd-tXf"/>
                 <outlet property="lc_upwardImgeViewLeading" destination="SvZ-SS-Uch" id="XB8-9g-jU5"/>
+                <outlet property="txtView_description" destination="PJE-IL-rjl" id="PMV-gh-3Ps"/>
             </connections>
             <point key="canvasLocation" x="33.5" y="54"/>
         </collectionViewCell>

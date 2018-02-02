@@ -20,6 +20,7 @@
 		07EBAC3E1F0C59FF0072BAAE /* UIImageView+ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EBAC3C1F0C59FF0072BAAE /* UIImageView+ImageLoader.swift */; };
 		07EBAC421F0C5A110072BAAE /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EBAC401F0C5A110072BAAE /* Photo.swift */; };
 		07EBAC431F0C5A110072BAAE /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EBAC411F0C5A110072BAAE /* Place.swift */; };
+		07EFEDDF2024EEE20074A6FA /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EFEDDE2024EEE20074A6FA /* LoadingCell.swift */; };
 		C56D5E3B1C0DC612CBFE3931 /* Pods_HelloFlickr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF2C1A94A18F12502A145645 /* Pods_HelloFlickr.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		07EBAC3C1F0C59FF0072BAAE /* UIImageView+ImageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImageView+ImageLoader.swift"; path = "Helpers/UIImageView+ImageLoader.swift"; sourceTree = "<group>"; };
 		07EBAC401F0C5A110072BAAE /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Photo.swift; path = Models/Photo.swift; sourceTree = "<group>"; };
 		07EBAC411F0C5A110072BAAE /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Place.swift; path = Models/Place.swift; sourceTree = "<group>"; };
+		07EFEDDE2024EEE20074A6FA /* LoadingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingCell.swift; path = Helpers/LoadingCell.swift; sourceTree = "<group>"; };
 		4D8149E12B3D039E150617FE /* Pods-HelloFlickr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloFlickr.release.xcconfig"; path = "Pods/Target Support Files/Pods-HelloFlickr/Pods-HelloFlickr.release.xcconfig"; sourceTree = "<group>"; };
 		791DD4B5C0EAF1D08D74B7EC /* Pods-HelloFlickr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloFlickr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HelloFlickr/Pods-HelloFlickr.debug.xcconfig"; sourceTree = "<group>"; };
 		AF2C1A94A18F12502A145645 /* Pods_HelloFlickr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HelloFlickr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +108,7 @@
 			children = (
 				07EBAC3B1F0C59FF0072BAAE /* LoadingView.swift */,
 				07EBAC3C1F0C59FF0072BAAE /* UIImageView+ImageLoader.swift */,
+				07EFEDDE2024EEE20074A6FA /* LoadingCell.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -171,7 +174,7 @@
 				TargetAttributes = {
 					07EBAC031F0BF24D0072BAAE = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 35P9S7STBV;
+						DevelopmentTeam = KM7V5N6GFF;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -268,6 +271,7 @@
 				07EBAC431F0C5A110072BAAE /* Place.swift in Sources */,
 				07EBAC081F0BF24D0072BAAE /* AppDelegate.swift in Sources */,
 				07EBAC3D1F0C59FF0072BAAE /* LoadingView.swift in Sources */,
+				07EFEDDF2024EEE20074A6FA /* LoadingCell.swift in Sources */,
 				07EBAC361F0C59EF0072BAAE /* AlbumCell.swift in Sources */,
 				07EBAC3E1F0C59FF0072BAAE /* UIImageView+ImageLoader.swift in Sources */,
 			);
@@ -393,7 +397,7 @@
 			baseConfigurationReference = 791DD4B5C0EAF1D08D74B7EC /* Pods-HelloFlickr.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 35P9S7STBV;
+				DEVELOPMENT_TEAM = KM7V5N6GFF;
 				INFOPLIST_FILE = HelloFlickr/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ranjith.HelloFlickr;
@@ -407,7 +411,7 @@
 			baseConfigurationReference = 4D8149E12B3D039E150617FE /* Pods-HelloFlickr.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 35P9S7STBV;
+				DEVELOPMENT_TEAM = KM7V5N6GFF;
 				INFOPLIST_FILE = HelloFlickr/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ranjith.HelloFlickr;
