@@ -18,13 +18,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_upward" translatesAutoresizingMaskIntoConstraints="NO" id="QTw-hG-vmi">
-                        <rect key="frame" x="20" y="-5" width="30" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="30" id="Auk-HN-yxJ"/>
-                            <constraint firstAttribute="height" constant="20" id="y9i-XY-X68"/>
-                        </constraints>
-                    </imageView>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wCg-kw-TAl">
                         <rect key="frame" x="10" y="10" width="355" height="130"/>
                         <subviews>
@@ -45,7 +38,7 @@
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" red="0.3294117647" green="0.80000000000000004" blue="0.58823529409999997" alpha="0.14950770547945205" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.3294117647" green="0.80000000000000004" blue="0.58823529409999997" alpha="0.14999999999999999" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="g96-8n-7zN" firstAttribute="leading" secondItem="wCg-kw-TAl" secondAttribute="leading" constant="10" id="Uxi-DE-Y6s"/>
                             <constraint firstAttribute="bottom" secondItem="PJE-IL-rjl" secondAttribute="bottom" constant="10" id="WYg-1D-Tqf"/>
@@ -65,22 +58,16 @@
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="wCg-kw-TAl" firstAttribute="top" secondItem="QTw-hG-vmi" secondAttribute="bottom" constant="-5" id="CLd-Do-Ha5"/>
                 <constraint firstItem="wCg-kw-TAl" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="Ela-7W-Ri4"/>
-                <constraint firstItem="QTw-hG-vmi" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="SvZ-SS-Uch"/>
+                <constraint firstItem="wCg-kw-TAl" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="YxW-2Y-Cqi"/>
                 <constraint firstAttribute="bottom" secondItem="wCg-kw-TAl" secondAttribute="bottom" constant="10" id="a8r-4P-vGP"/>
-                <constraint firstItem="QTw-hG-vmi" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="-5" id="iW6-wC-w8P"/>
                 <constraint firstAttribute="trailing" secondItem="wCg-kw-TAl" secondAttribute="trailing" constant="10" id="n3D-Pu-muo"/>
             </constraints>
             <connections>
                 <outlet property="lbl_title" destination="g96-8n-7zN" id="p2u-Rd-tXf"/>
-                <outlet property="lc_upwardImgeViewLeading" destination="SvZ-SS-Uch" id="XB8-9g-jU5"/>
                 <outlet property="txtView_description" destination="PJE-IL-rjl" id="PMV-gh-3Ps"/>
             </connections>
             <point key="canvasLocation" x="33.5" y="54"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="icon_upward" width="64" height="64"/>
-    </resources>
 </document>

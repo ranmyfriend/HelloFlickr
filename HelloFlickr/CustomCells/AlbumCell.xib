@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,24 +19,52 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4j7-hh-VyV">
-                        <rect key="frame" x="8" y="8" width="134" height="134"/>
+                        <rect key="frame" x="8" y="8" width="134" height="122"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                 <integer key="value" value="4"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Views:100" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cmn-NJ-fdl">
+                        <rect key="frame" x="8" y="115.5" width="134" height="14.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="14.5" id="pKR-o6-bfr"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="j9Q-08-zP5">
+                        <rect key="frame" x="62.5" y="130" width="25" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="AKo-Z2-Ky1"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="4j7-hh-VyV" secondAttribute="bottom" constant="8" id="9DH-Wh-G2u"/>
+                <constraint firstAttribute="bottom" secondItem="j9Q-08-zP5" secondAttribute="bottom" id="71l-Nz-ptV"/>
+                <constraint firstItem="j9Q-08-zP5" firstAttribute="top" secondItem="4j7-hh-VyV" secondAttribute="bottom" id="IE9-Rn-3PT"/>
+                <constraint firstItem="Cmn-NJ-fdl" firstAttribute="centerX" secondItem="4j7-hh-VyV" secondAttribute="centerX" id="OGD-mF-r8d"/>
                 <constraint firstAttribute="trailing" secondItem="4j7-hh-VyV" secondAttribute="trailing" constant="8" id="RMh-Pu-wS9"/>
+                <constraint firstItem="j9Q-08-zP5" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Rr5-Iy-VLJ"/>
+                <constraint firstItem="Cmn-NJ-fdl" firstAttribute="bottom" secondItem="4j7-hh-VyV" secondAttribute="bottom" id="SH7-Vo-pxG"/>
+                <constraint firstItem="Cmn-NJ-fdl" firstAttribute="trailing" secondItem="4j7-hh-VyV" secondAttribute="trailing" id="TGD-k4-WvO"/>
                 <constraint firstItem="4j7-hh-VyV" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="TI8-pG-hQg"/>
+                <constraint firstItem="Cmn-NJ-fdl" firstAttribute="leading" secondItem="4j7-hh-VyV" secondAttribute="leading" id="giE-LX-HAP"/>
                 <constraint firstItem="4j7-hh-VyV" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="vUF-R8-gmm"/>
             </constraints>
             <connections>
+                <outlet property="downArrowHeightLC" destination="AKo-Z2-Ky1" id="QGG-bS-wqe"/>
+                <outlet property="imageViewBottomLC" destination="IE9-Rn-3PT" id="yk7-wl-sBV"/>
                 <outlet property="iv_Photo" destination="4j7-hh-VyV" id="Gjg-Zs-pY3"/>
+                <outlet property="viewsCountLabel" destination="Cmn-NJ-fdl" id="xV5-tf-Myy"/>
             </connections>
+            <point key="canvasLocation" x="39" y="54"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="icon_downArrow" width="25" height="25"/>
+    </resources>
 </document>

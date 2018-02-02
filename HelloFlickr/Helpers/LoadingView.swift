@@ -26,7 +26,7 @@ class LoadingView: UIView {
     // MARK: - Private Functions
     private func createViews() {
         self.indicator = UIActivityIndicatorView.init(activityIndicatorStyle: .whiteLarge)
-        self.indicator?.color = UIColor.rgb(fromHex: 0x0041FF)
+        self.indicator?.color = UIColor.rgb(fromHex: 0x54CC96)
         self.indicator?.backgroundColor = .clear
         self.addSubview(self.indicator!)
         

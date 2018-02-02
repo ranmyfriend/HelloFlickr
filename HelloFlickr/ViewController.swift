@@ -9,30 +9,32 @@
 import UIKit
 import FlickrKit
 
-class ViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
-    
-    @IBOutlet weak var collectionView_Albums: UICollectionView! {
+class ViewController: UIViewController {
+
+    //MARK: - iVars
+    @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
-            self.collectionView_Albums.delegate = self
-            self.collectionView_Albums.dataSource = self
+            self.collectionView.delegate = self
+            self.collectionView.dataSource = self
             let albumNib:UINib = UINib.init(nibName: AlbumCell.reuseIdentifier(), bundle: nil)
-            self.collectionView_Albums.register(albumNib, forCellWithReuseIdentifier: AlbumCell.reuseIdentifier())
+            self.collectionView.register(albumNib, forCellWithReuseIdentifier: AlbumCell.reuseIdentifier())
             let albumDetailNib:UINib = UINib.init(nibName: AlbumDetailCell.reuseIdentifier(), bundle: nil)
-            self.collectionView_Albums.register(albumDetailNib, forCellWithReuseIdentifier: AlbumDetailCell.reuseIdentifier())
-            self.collectionView_Albums.register(LoadingCell.self, forCellWithReuseIdentifier: LoadingCell.reuseIdentifier())
+            self.collectionView.register(albumDetailNib, forCellWithReuseIdentifier: AlbumDetailCell.reuseIdentifier())
+            self.collectionView.register(LoadingCell.self, forCellWithReuseIdentifier: LoadingCell.reuseIdentifier())
         }
     }
     
-    lazy var photos:[Photo] = []
-    var tappedRowItem:Int = -1
-    var albumCellMidValue:CGFloat = 0
-    internal var loadingView: LoadingView?
+    fileprivate lazy var photos:[Photo] = []
+    fileprivate var tappedRowItem:Int = -1
+    fileprivate var loadingView: LoadingView?
     fileprivate var currentPage:Int = 1
     fileprivate var hasMorePages:Bool = false
-    
+    fileprivate let itemsPerRow = 4
+
+    //MARK: - Overriden functions
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.showLoadingViewWithMessage(message: "Loading...")
+        self.showLoader()
         self.getRandomFotos()
     }
     
@@ -44,12 +46,16 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
     fileprivate func getRandomFotos() {
         let flickrInteresting = FKFlickrInterestingnessGetList()
         flickrInteresting.per_page = "15"
-        flickrInteresting.extras = "description,date_upload,geo"
+        flickrInteresting.extras = "description,date_upload,geo,views"
         flickrInteresting.page = currentPage.description
         FlickrKit.shared().call(flickrInteresting) { (response, error) -> Void in
             DispatchQueue.main.async {
                 self.hideLoadingView()
-                if (response != nil) {
+                if (error != nil) {
+                    self.hasMorePages = false
+                    let alert = self.buildAlert(with: "Hello Flickr", message: error?.localizedDescription ?? "Error while Loading Random Photos")
+                    self.present(alert, animated: true, completion: nil)
+                }else {
                     let topPhotos = response?["photos"] as! [String: Any]
                     let photoArray = topPhotos["photo"] as! [[String: Any]]
                     if photoArray.count == 15 {
@@ -57,7 +63,7 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
                     }else {
                         self.hasMorePages = false
                     }
-                    
+
                     for photoDictionary in photoArray {
                         let photoURL = FlickrKit.shared().photoURL(for: FKPhotoSize.largeSquare150, fromPhotoDictionary: photoDictionary)
                         var copied:[String:Any] = photoDictionary
@@ -65,31 +71,27 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
                         let photo = Photo.init(inputDictionary: copied)
                         self.photos.append(photo)
                     }
-                    self.collectionView_Albums.reloadData()
                 }
+                self.collectionView.reloadData()
             }
         }
     }
     
-    public func showLoadingViewWithMessage(message:String) {
+    private func showLoader(_ message:String="Loading...") {
         self.loadingView = LoadingView.init(frame: CGRect(x:0, y:0, width:UIScreen.main.bounds.width, height:UIScreen.main.bounds.height))
         self.loadingView?.backgroundColor = UIColor.rgba(fromHex: 0xFFFFFF, alpha: 0.5)
         if (UIApplication.shared.keyWindow?.subviews.contains(self.loadingView!))! == false {
             UIApplication.shared.keyWindow?.addSubview(self.loadingView!)
         }
         UIApplication.shared.keyWindow?.bringSubview(toFront: self.loadingView!)
-        
-        if(message.isEmpty == false) {
-            self.loadingView?.lblLoadingMessage?.text = message
-        }
+        self.loadingView?.lblLoadingMessage?.text = message
         self.loadingView?.startAnimatingLoader()
     }
     
-    public func hideLoadingView() {
+    private func hideLoadingView() {
         DispatchQueue.main.async {
             // Safer zone to find the loading view and remove it from SuperView
             var found = false
-            
             for subview in (UIApplication.shared.keyWindow?.subviews)! {
                 if subview is LoadingView {
                     found = true
@@ -105,39 +107,16 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
             self.loadingView?.stopAnimatingLoader()
         }
     }
-    func fetchPhotoLocation(for photo:Photo) {
 
-        guard let latitude = photo.geo_latitude,
-            let longitude = photo.geo_longitude else { return  }
-
-        let request = NSMutableURLRequest(url: NSURL(string: "https://api.flickr.com/services/rest/?method=flickr.places.findByLatLon&api_key=46606a4138ae73154f81868e904c1617&lat=\(latitude)&lon=\(longitude)&format=json&nojsoncallback=1")! as URL,
-                                          cachePolicy: .useProtocolCachePolicy,
-                                          timeoutInterval: 10.0)
-        request.httpMethod = "GET"
-
-        self.showLoadingViewWithMessage(message: "Loading...")
-        let session = URLSession.shared
-        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-            self.hideLoadingView()
-            if (error != nil) {
-                print(error?.localizedDescription ?? "")
-            } else {
-                let response = try! JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any]
-                let root = response?["places"] as! [String: Any]
-                let places = root["place"] as! [[String:Any]]
-                let place = Place.init(object: places.first!)
-                photo.place = place
-                DispatchQueue.main.async {
-                    self.collectionView_Albums.reloadData()
-                }
-            }
-        })
-
-        dataTask.resume()
+    private func buildAlert(with title:String,message:String)->UIAlertController {
+        let alert = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction.init(title: "OK", style: .default, handler: nil))
+        return alert
     }
 }
 
-extension ViewController {
+//MARK: - Extension|UICollectionViewDelegate&DataSource
+extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -152,13 +131,14 @@ extension ViewController {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if self.hasMorePages && photos.count == indexPath.row {
             let cell:LoadingCell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadingCell.reuseIdentifier(), for: indexPath) as! LoadingCell
-            cell.startAnimatingCell()
+            cell.showLoader()
             return cell
         }else if indexPath.row == tappedRowItem {
             let cell:AlbumDetailCell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumDetailCell.reuseIdentifier(), for: indexPath) as! AlbumDetailCell
-            cell.populateCell(with: self.photos[indexPath.row])
-            cell.lc_upwardImgeViewLeading.constant = albumCellMidValue
-            cell.layoutIfNeeded()
+            let photo = self.photos.filter({ p in
+                p.selected == true
+            }).first
+            cell.populateCell(with: photo!)
             return cell
         }else {
             let cell:AlbumCell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCell.reuseIdentifier(), for: indexPath) as! AlbumCell
@@ -169,55 +149,35 @@ extension ViewController {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let photo = self.photos[indexPath.row]
-        if tappedRowItem != -1 {
-            photo.selected = false
-            let item = self.photos[tappedRowItem]
-            item.selected = false
-            self.photos.remove(at: tappedRowItem)
-            tappedRowItem = -1
-            self.collectionView_Albums.reloadData()
+        if self.photos.count == indexPath.row {
             return
-        }else if indexPath.row == 0 {
-            photo.selected = true
-            self.tappedRowItem = indexPath.row + 2
-            self.photos.insert(photo, at: self.tappedRowItem)
-            let cell = self.collectionView(collectionView, cellForItemAt: indexPath) as? AlbumCell
-            albumCellMidValue = (cell?.contentView.frame.midX)!
-        }else if indexPath.row == self.photos.count-1{
-            photo.selected = true
-            self.tappedRowItem = indexPath.row + 1
-            self.photos.insert(photo, at: self.tappedRowItem)
-            albumCellMidValue = UIScreen.main.bounds.width/2
+        }
+        let photo = self.photos[indexPath.row]
+        if photo.selected == true {
+            photo.selected = false
+            self.tappedRowItem = -1
         }else {
-            photo.selected = true
-            let index = indexPath.row + 1
-            if index%2 == 0 {
-                self.tappedRowItem = indexPath.row + 1
-                let cell = self.collectionView(collectionView, cellForItemAt: indexPath) as? AlbumCell
-                albumCellMidValue = (cell?.contentView.frame.midX)!+UIScreen.main.bounds.width/2
+            let row = indexPath.item/itemsPerRow
+            if row == 0 {
+                self.tappedRowItem = itemsPerRow
             }else {
-                self.tappedRowItem = indexPath.row + 2
-                let cell = self.collectionView(collectionView, cellForItemAt: indexPath) as? AlbumCell
-                albumCellMidValue = (cell?.contentView.frame.midX)!
+                self.tappedRowItem = row*itemsPerRow+itemsPerRow
             }
-            self.photos.insert(photo, at: self.tappedRowItem)
+            self.photos.forEach { (p) in
+                p.selected = false
+            }
+            photo.selected = true
         }
-        
-        self.collectionView_Albums.reloadData()
-        if self.photos[self.tappedRowItem].place == nil {
-            self.fetchPhotoLocation(for: self.photos[self.tappedRowItem])
-        }
+        self.collectionView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = ((UIScreen.main.bounds.size.width/4))
         if self.hasMorePages && self.photos.count == indexPath.row {
-            return CGSize(width:UIScreen.main.bounds.size.width,
-                          height:LoadingCell.getHeight())
+            return CGSize(width:width,height:width)
         }else if indexPath.row == self.tappedRowItem {
             return CGSize(width:UIScreen.main.bounds.size.width,height:150)
         }else {
-            let width = ((UIScreen.main.bounds.size.width / 2))
             return CGSize(width: width , height: width)
         }
     }
@@ -234,26 +194,3 @@ extension ViewController {
     }
 }
 
-extension Dictionary {
-    subscript(string key: Key) -> String? {
-        get {
-            return self[key] as? String
-        }
-    }
-    subscript(json key: Key) -> [String:Any]? {
-        get {
-            return self[key] as? [String:Any]
-        }
-    }
-    subscript(double key: Key) -> Double? {
-        get {
-            return self[key] as? Double
-        }
-    }
-    subscript(int key: Key) -> Int? {
-        get {
-            return self[key] as? Int
-        }
-    }
-    
-}

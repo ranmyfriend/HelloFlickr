@@ -23,13 +23,18 @@ class AlbumDetailCell: UICollectionViewCell {
     
     public func populateCell(with photo:Photo) {
         if let place = photo.place {
-            let nameArray = place.name?.components(separatedBy: ",")
-            self.lbl_title.text = photo.title! + " " + (nameArray?.last)! 
+            if let nameArray = place.name?.components(separatedBy: ",") {
+                if let title=photo.title,
+                    let last = nameArray.last {
+                    self.lbl_title.text = title + " " + last
+                }
+            }else {
+                self.lbl_title.text = photo.title ?? "Title"
+            }
         }else {
             self.lbl_title.text = photo.title
         }
         self.txtView_description.text = photo.description
-        
     }
 
 }

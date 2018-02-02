@@ -15,6 +15,7 @@ class Photo {
     var dictionary:[String:Any]?
     var place:Place?
     var selected:Bool?
+    var views:String?
     convenience init(inputDictionary: Dictionary<String,Any>) {
         self.init()
         self.dictionary = inputDictionary
@@ -23,6 +24,9 @@ class Photo {
         }
         if let id = inputDictionary[string:"id"] {
             self.id = id
+        }
+        if let views = inputDictionary[string:"views"] {
+            self.views = views
         }
         
         if let description = inputDictionary[json:"description"] {

@@ -16,13 +16,13 @@ enum ImageStyle:Int {
 
 extension UIImageView {
     
-    func f22_setImage(url:URL,imageStyle:ImageStyle) {
+    func f22_setImage(url:URL?,imageStyle:ImageStyle) {
         
         self.image = nil
         
-//        if url.characters.count < 1 {
-//            return
-//        }
+        if url == nil {
+            return
+        }
         self.backgroundColor = UIColor.rgb(fromHex: 0xEDF0F1)
         
         if(imageStyle == .rounded) {
