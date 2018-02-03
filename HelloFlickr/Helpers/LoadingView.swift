@@ -37,6 +37,7 @@ class LoadingView: UIView {
         self.lblLoadingMessage?.font = UIFont.systemFont(ofSize: 15)
         self.lblLoadingMessage?.backgroundColor = .clear
         self.lblLoadingMessage?.numberOfLines = 1
+        self.lblLoadingMessage?.adjustsFontSizeToFitWidth = true
         self.addSubview(self.lblLoadingMessage!)
         
     }

@@ -172,14 +172,23 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource,UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = ((UIScreen.main.bounds.size.width/4))
+        let width = ((UIScreen.main.bounds.size.width/CGFloat(itemsPerRow)))
         if self.hasMorePages && self.photos.count == indexPath.row {
             return CGSize(width:width,height:width)
         }else if indexPath.row == self.tappedRowItem {
             return CGSize(width:UIScreen.main.bounds.size.width,height:150)
         }else {
-            return CGSize(width: width , height: width)
+            return CGSize(width: width, height: width)
         }
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsetsMake(0, 0, 0, 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
