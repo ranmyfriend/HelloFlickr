@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4j7-hh-VyV">
-                        <rect key="frame" x="8" y="8" width="134" height="122"/>
+                        <rect key="frame" x="0.0" y="0.0" width="150" height="130"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                 <integer key="value" value="4"/>
@@ -27,7 +27,7 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Views:100" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cmn-NJ-fdl">
-                        <rect key="frame" x="8" y="115.5" width="134" height="14.5"/>
+                        <rect key="frame" x="0.0" y="115.5" width="150" height="14.5"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="14.5" id="pKR-o6-bfr"/>
                         </constraints>
@@ -47,13 +47,13 @@
                 <constraint firstAttribute="bottom" secondItem="j9Q-08-zP5" secondAttribute="bottom" id="71l-Nz-ptV"/>
                 <constraint firstItem="j9Q-08-zP5" firstAttribute="top" secondItem="4j7-hh-VyV" secondAttribute="bottom" id="IE9-Rn-3PT"/>
                 <constraint firstItem="Cmn-NJ-fdl" firstAttribute="centerX" secondItem="4j7-hh-VyV" secondAttribute="centerX" id="OGD-mF-r8d"/>
-                <constraint firstAttribute="trailing" secondItem="4j7-hh-VyV" secondAttribute="trailing" constant="8" id="RMh-Pu-wS9"/>
+                <constraint firstAttribute="trailing" secondItem="4j7-hh-VyV" secondAttribute="trailing" id="RMh-Pu-wS9"/>
                 <constraint firstItem="j9Q-08-zP5" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Rr5-Iy-VLJ"/>
                 <constraint firstItem="Cmn-NJ-fdl" firstAttribute="bottom" secondItem="4j7-hh-VyV" secondAttribute="bottom" id="SH7-Vo-pxG"/>
                 <constraint firstItem="Cmn-NJ-fdl" firstAttribute="trailing" secondItem="4j7-hh-VyV" secondAttribute="trailing" id="TGD-k4-WvO"/>
-                <constraint firstItem="4j7-hh-VyV" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="TI8-pG-hQg"/>
+                <constraint firstItem="4j7-hh-VyV" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="TI8-pG-hQg"/>
                 <constraint firstItem="Cmn-NJ-fdl" firstAttribute="leading" secondItem="4j7-hh-VyV" secondAttribute="leading" id="giE-LX-HAP"/>
-                <constraint firstItem="4j7-hh-VyV" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="vUF-R8-gmm"/>
+                <constraint firstItem="4j7-hh-VyV" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="vUF-R8-gmm"/>
             </constraints>
             <connections>
                 <outlet property="downArrowHeightLC" destination="AKo-Z2-Ky1" id="QGG-bS-wqe"/>

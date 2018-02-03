@@ -18,11 +18,11 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="452"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fhh-qG-aDo">
-                                <rect key="frame" x="0.0" y="116" width="320" height="452"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fhh-qG-aDo">
+                                <rect key="frame" x="8" y="8" width="304" height="436"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="UrR-Ig-QZN">
                                     <size key="itemSize" width="99" height="98"/>
@@ -44,13 +44,13 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="fhh-qG-aDo" secondAttribute="trailing" id="Kz9-8p-E4x"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="fhh-qG-aDo" secondAttribute="bottom" id="jXT-Iw-H2K"/>
-                            <constraint firstItem="fhh-qG-aDo" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="x5B-g8-aMn"/>
-                            <constraint firstItem="fhh-qG-aDo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="yZJ-qn-hV7"/>
+                            <constraint firstAttribute="trailing" secondItem="fhh-qG-aDo" secondAttribute="trailing" constant="8" id="Kz9-8p-E4x"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="fhh-qG-aDo" secondAttribute="bottom" constant="8" id="jXT-Iw-H2K"/>
+                            <constraint firstItem="fhh-qG-aDo" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="x5B-g8-aMn"/>
+                            <constraint firstItem="fhh-qG-aDo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="yZJ-qn-hV7"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Random Flickrs" id="dCc-g1-440"/>
+                    <navigationItem key="navigationItem" title="Random Flickrs" largeTitleDisplayMode="always" id="dCc-g1-440"/>
                     <connections>
                         <outlet property="collectionView" destination="fhh-qG-aDo" id="udI-ZN-oRW"/>
                     </connections>
@@ -64,11 +64,11 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="htN-1d-FHU" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="mtj-ME-VON">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" largeTitles="YES" id="mtj-ME-VON">
                         <rect key="frame" x="0.0" y="20" width="320" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                             <color key="textColor" red="0.3294117647" green="0.80000000000000004" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                             <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
                         </textAttributes>

@@ -89,26 +89,10 @@ class ViewController: UIViewController {
     }
     
     private func hideLoadingView() {
-        DispatchQueue.main.async {
-            // Safer zone to find the loading view and remove it from SuperView
-            var found = false
-            for subview in (UIApplication.shared.keyWindow?.subviews)! {
-                if subview is LoadingView {
-                    found = true
-                    subview.removeFromSuperview()
-                    break
-                }
-            }
-            if !found {
-                debugPrint("self.loading does not contain any superview")
-            }
-            
-            self.loadingView?.removeFromSuperview()
-            self.loadingView?.stopAnimatingLoader()
-        }
+        self.loadingView?.removeFromSuperview()
     }
 
-    private func buildAlert(with title:String,message:String)->UIAlertController {
+    fileprivate func buildAlert(with title:String,message:String)->UIAlertController {
         let alert = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction.init(title: "OK", style: .default, handler: nil))
         return alert
@@ -169,14 +153,24 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource,UIC
             photo.selected = true
         }
         self.collectionView.reloadData()
+        //Need to handle this Edge case!
+        if self.tappedRowItem>self.photos.count {
+            let specialAlert = UIAlertController.init(title: photo.title, message: photo.description, preferredStyle: .alert)
+            let okayAction = UIAlertAction.init(title: "Hmm", style: .default, handler: { (tapped) in
+                photo.selected = false
+                self.collectionView.reloadData()
+            })
+            specialAlert.addAction(okayAction)
+            self.present(specialAlert, animated: true, completion: nil)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = ((UIScreen.main.bounds.size.width/CGFloat(itemsPerRow)))
+        let width = ((collectionView.frame.width/CGFloat(itemsPerRow)))
         if self.hasMorePages && self.photos.count == indexPath.row {
             return CGSize(width:width,height:width)
         }else if indexPath.row == self.tappedRowItem {
-            return CGSize(width:UIScreen.main.bounds.size.width,height:150)
+            return CGSize(width:collectionView.frame.width,height:150)
         }else {
             return CGSize(width: width, height: width)
         }

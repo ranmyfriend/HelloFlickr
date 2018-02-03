@@ -11,7 +11,7 @@ import FlickrKit
 
 struct FlickrKeys {
     static let ApiKey:String = "46606a4138ae73154f81868e904c1617"
-    static let SceretKey:String = "acd3d39e9afb505d"
+    static let SecretKey:String = "acd3d39e9afb505d"
 }
 
 @UIApplicationMain
@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func flickrSetup() {
-        FlickrKit.shared().initialize(withAPIKey: FlickrKeys.ApiKey, sharedSecret: FlickrKeys.SceretKey)
+        FlickrKit.shared().initialize(withAPIKey: FlickrKeys.ApiKey, sharedSecret: FlickrKeys.SecretKey)
     }
 
 }
