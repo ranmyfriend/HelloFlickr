@@ -3,4 +3,4 @@ Flickr Integration
 
 ## Demo
 
-![Alt Text](https://gph.is/2BCcqYO)
+![Alt Text](https://media.giphy.com/media/6A7Gn2B8x4AxUkmujO/giphy.gif)
